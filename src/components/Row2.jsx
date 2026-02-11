@@ -4,13 +4,8 @@ import FallingHearts from "./FallingHearts";
 const NO_BUTTON_TEXTS = [
   "No 🙄",
   "Wait lemme tell you smt☹️",
-  // "Waaaaaait lemme tell you smt😢",
-  // "Waaaaaaaaaaaaait lemme tell you smttttttttt😭",
   "I can cook real good Jollof Rice 🙃",
   "I'll add ponmo🥺",
-  "And panla",
-  "Miss Okoronkwo-Oraike Nji eka!🫢",
-  "Looking for the 'd' ehh?😏",
   "Plot twist: this button is broken 😅",
   "Seriously? Again? 😩",
   // "Instructions unclear, click 'Yes' 🔄",
@@ -23,15 +18,9 @@ const NO_BUTTON_TEXTS = [
   "Error 404: Good decision not found 🚫",
   "Why are you like this???🙄",
   "Omo see wahala 😫",
-  "Last last, everybody go chop breakfast!!!!!",
+  "Last last, everybody go chop breakfast!!!!",
   "Siri, play me something for this heartbreak",
-  "I wish I could afford a rollie",
-  "Drive around and fck the police",
-  "But my mom depending on me",
-  "Turn up the volume for me",
-  "You seeeee, you're singing it too",
-  "The universe is telling you to click 'Yes' ✨",
-  "The 'Yes' button is looking really lonely 🥺",
+  "'Tears always win by Alicia Keys' now playing",
   "I'm running out of things to say 😅",
   "Last chance... maybe 👀",
   "Fine. Con dey go😑",
@@ -43,6 +32,7 @@ function Row2() {
   const [yes, setYes] = useState(false);
   const [yesButtonSize, setYesButtonSize] = useState(1);
   const [textIndex, setTextIndex] = useState(0);
+  const [centerYes, setCenterYes] = useState(false);
   const audioRef = useRef(new Audio("/valentine.m4a"));
   const bgMusicRef = useRef(new Audio("/forever.m4a"));
   const [musicStarted, setMusicStarted] = useState(false);
@@ -64,10 +54,14 @@ function Row2() {
     audioRef.current.play().catch(() => {});
     audioRef.current.loop = true;
 
-    const x = Math.random() * 300 - 150;
-    const y = Math.random() * 200 - 300;
+    const isMobile = window.innerWidth < 768;
+    const maxX = isMobile ? 200 : 300;
+    const maxY = isMobile ? 150 : 200;
+    const x = Math.random() * maxX - maxX / 2;
+    const y = Math.random() * maxY - maxY / 2;
     setPos({ x, y });
     setYesButtonSize((prev) => prev + 0.3);
+    setCenterYes(true);
     if (textIndex < NO_BUTTON_TEXTS.length - 1) {
       setTextIndex((prev) => prev + 1);
     }
@@ -80,7 +74,8 @@ function Row2() {
     setYes(true);
     setYesButtonSize(1);
     setPos({ x: 0, y: 0 });
-    setTextIndex(0)
+    setTextIndex(0);
+    setCenterYes(false);
   };
 
   return (
@@ -92,26 +87,40 @@ function Row2() {
           alt={yes ? "kiss" : "bear"}
           className={`${yes ? " w-[400px]" : "w-[200px]"}`}
         />
-        <h2 className="text-4xl  text-gray-800">
+        <h2 className="text-2xl md:text-4xl text-gray-800">
           Will you be my Valentine? 💘
         </h2>
 
-        <div className="flex gap-6">
+        <div className="relative w-full flex items-center justify-center">
           <button
             style={{ scale: yesButtonSize }}
             onClick={forYes}
-            className="px-8 py-3 rounded-full bg-pink-500 text-white text-lg hover:scale-105 transition"
+            className={`px-8 py-3 rounded-full bg-pink-500 text-white text-lg hover:scale-105 transition ${
+              centerYes ? 'absolute left-1/2 -translate-x-1/2' : ''
+            }`}
           > 
             Yes 💖
           </button>
 
-          <button
-            onClick={moveButton}
-            style={{ transform: `translate(${pos.x}px, ${pos.y}px)` }}
-            className="px-6 py-2 font-bold bg-gray-200 rounded-full border-2 border-gray-400 text-gray-600 hover:-translate-y-1 transition"
-          >
-            {NO_BUTTON_TEXTS[textIndex]}
-          </button>
+          {!centerYes && (
+            <button
+              onClick={moveButton}
+              style={{ transform: `translate(${pos.x}px, ${pos.y}px)` }}
+              className="px-6 py-2 font-bold bg-gray-200 rounded-full border-2 border-gray-400 text-gray-600 hover:-translate-y-1 transition ml-6"
+            >
+              {NO_BUTTON_TEXTS[textIndex]}
+            </button>
+          )}
+
+          {centerYes && (
+            <button
+              onClick={moveButton}
+              style={{ transform: `translate(${pos.x}px, ${pos.y}px)` }}
+              className="px-2 text-[14px] md:text-[1rem] md:px-6 py-2 font-bold bg-gray-200 rounded-full border-2 border-gray-400 text-gray-600 hover:-translate-y-1 transition absolute"
+            >
+              {NO_BUTTON_TEXTS[textIndex]}
+            </button>
+          )}
         </div>
       </section>
     </div>

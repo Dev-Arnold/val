@@ -9,24 +9,16 @@ function Row1({ onScrollToRow2 }) {
   <section className="min-h-screen flex items-center justify-center bg-[#FDE2E4] px-6 text-center">
     <div className="max-w-2xl">
     <h1 className="font-serif text-2xl leading-relaxed text-gray-800">
-        <span className="block mb-6 text-pink-700 tracking-wide">
-          Dearest Gentle Reader,
+        <span className="block mb-3 text-pink-700 tracking-wide">
+          Hii,
         </span>
 
         <span className="block">
-          The season has only just begun, and already my composure is quite
-          ruined — entirely by you.
+          I'd love to go star gazing with you someday,
         </span>
 
         <span className="block mt-2">
-          So:
-        </span>
-
-        <span className="block mt-2">
-          Roses are red, <br />
-          I'll keep this concise, <br />
-          You could say no… <br />
-          But that wouldn't be wise.
+          but I'm afraid I'd just end up staring at the one <em>closest</em> to me.
         </span>
       </h1>
 
