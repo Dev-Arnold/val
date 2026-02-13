@@ -16,7 +16,7 @@ function App() {
   };
 
   return (
-    <div className=" hidden md:block">
+    <div >
       <Row1 onScrollToRow2={scrollToRow2} />
       <div ref={row2Ref}>
         <Row2 onScrollToRow3={scrollToRow3}/>
