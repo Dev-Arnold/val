@@ -18,15 +18,9 @@ function Row1({ onScrollToRow2 }) {
           ruined — entirely by you.
         </span>
 
-        <span className="block mt-2">
-          So:
-        </span>
 
         <span className="block mt-2">
-          Roses are red, <br />
-          I'll keep this concise, <br />
-          You could say no… <br />
-          But that wouldn't be wise.
+         And I'd love to go stargazing with you someday... <br /> but I have a feeling I'd end up staring at the one closest to me.
         </span>
       </h1>
 
