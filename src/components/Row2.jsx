@@ -1,7 +1,7 @@
 import React from 'react'
 import FallingHearts from './FallingHearts'
 
-function Row2({ onScrollToRow3 }) {
+function Row2({ onScrollToRow3, bgMusicRef }) {
   return (
   <div className="relative overflow-hidden">
   <FallingHearts />

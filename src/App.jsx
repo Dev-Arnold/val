@@ -6,8 +6,11 @@ import Row3 from './components/Row3';
 function App() {
   const row2Ref = useRef(null);
   const row3Ref = useRef(null);
+  const bgMusicRef = useRef(new Audio("/forever.m4a"));
 
   const scrollToRow2 = () => {
+    bgMusicRef.current.loop = true;
+    bgMusicRef.current.play();
     row2Ref.current?.scrollIntoView({ behavior: "smooth" });
   };
 
@@ -19,10 +22,10 @@ function App() {
     <div >
       <Row1 onScrollToRow2={scrollToRow2} />
       <div ref={row2Ref}>
-        <Row2 onScrollToRow3={scrollToRow3}/>
+        <Row2 onScrollToRow3={scrollToRow3} bgMusicRef={bgMusicRef} />
       </div>
       <div ref={row3Ref}>
-        <Row3 />
+        <Row3 bgMusicRef={bgMusicRef} />
       </div>
      
     </div>

@@ -32,30 +32,33 @@ const NO_BUTTON_TEXTS = [
   "You dey go na🤧",
 ];
 
-function Row3() {
+function Row3({ bgMusicRef }) {
   const [pos, setPos] = useState({ x: 0, y: 0 });
   const [yes, setYes] = useState(false);
   const [yesButtonSize, setYesButtonSize] = useState(1);
   const [textIndex, setTextIndex] = useState(0);
   const [centerYes, setCenterYes] = useState(false);
   const audioRef = useRef(new Audio("/valentine.m4a"));
-  const bgMusicRef = useRef(new Audio("/forever.m4a"));
   const [musicStarted, setMusicStarted] = useState(false);
 
   useEffect(() => {
-    bgMusicRef.current.loop = true;
+    if (bgMusicRef?.current) {
+      bgMusicRef.current.loop = true;
+    }
     const handleKeyPress = () => {
-      if (!musicStarted) {
+      if (!musicStarted && bgMusicRef?.current) {
         bgMusicRef.current.play();
         setMusicStarted(true);
       }
     };
     document.addEventListener("keydown", handleKeyPress);
     return () => document.removeEventListener("keydown", handleKeyPress);
-  }, [musicStarted]);
+  }, [musicStarted, bgMusicRef]);
 
   const moveButton = () => {
-    bgMusicRef.current.pause();
+    if (bgMusicRef?.current) {
+      bgMusicRef.current.pause();
+    }
     audioRef.current.play().catch(() => {});
     audioRef.current.loop = true;
 
@@ -75,7 +78,9 @@ function Row3() {
   const forYes = () => {
     audioRef.current.pause();
     audioRef.current.currentTime = 0;
-    bgMusicRef.current.play();
+    if (bgMusicRef?.current) {
+      bgMusicRef.current.play();
+    }
     setYes(true);
     setYesButtonSize(1);
     setPos({ x: 0, y: 0 });
